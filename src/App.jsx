@@ -1,6 +1,6 @@
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import DataCard from "./dataCard";
+import ButtonCard from './ButtonCard'; 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import mainMusicAsset from './assets/audio/mainMusic.wav';
@@ -25,6 +25,36 @@ function App() {
   //   audio.play();
   // };
 
+
+
+const [answer, setAnswer] = useState("");
+
+const handleKeypadPress = (num) => {
+
+  if(num === "Clear") {
+    // Clear the text
+    setAnswer("");
+  }
+  if(num === "Submit") {
+
+
+  }
+  if(num === "Backspace") {
+
+
+
+  } else {
+
+  setAnswer( answer + String(num));
+
+
+  }
+
+}
+
+
+
+
   //  This will be the API key that I will be using to get the data from the API
 
   const selectedCategory = 'love'; // Replace with the desired category
@@ -34,6 +64,9 @@ function App() {
 
   const [data, setData] = useState([]);
 
+
+
+  // DONT TOUCH 
   useEffect(() => {
 
   fetch(`https://api.api-ninjas.com/v2/randomquotes?categories=${selectedCategory}`,
@@ -77,11 +110,7 @@ return (
       <Typography variant="h6" component="div" gutterBottom>
        
       </Typography>
-      
-
-
-
-
+  
 
       {/* Here I will put the cards that will hold the text */}
        <Card sx={{ maxWidth: 345 }}>
@@ -95,68 +124,30 @@ return (
       
     </Card>
 
-       
-      
-    
-
-   
-
-
-
     </div>
 <Box sx={{ width: 500, maxWidth: '100%' }}>
-      <TextField fullWidth label="fullWidth" id="fullWidth" />
+      <TextField 
+          fullWidth 
+        
+          id="fullWidth" 
+          value={answer} 
+          slotProps={{ input: { readOnly: true } }} // Optional: prevents direct typing
+        />
 </Box>
 
 
 
-  <ButtonGroup
-      disableElevation
-      variant="contained"
-      aria-label="Disabled button group"
-    >
-      <Button>1</Button>
-      <Button>2</Button>
-      <Button>3</Button>
-    </ButtonGroup>
-      <ButtonGroup
-        disableElevation
-        variant="contained"
-        aria-label="Disabled button group"
-      >
-        <Button>4</Button>
-        <Button>5</Button>
-        <Button>6</Button>
-      </ButtonGroup>
-
-      <ButtonGroup
-        disableElevation
-        variant="contained"
-        aria-label="Disabled button group"
-      >
-        <Button>7</Button>
-        <Button>8</Button>
-        <Button>9</Button>
-      </ButtonGroup>
 
 
-      <ButtonGroup
-        disableElevation
-        variant="contained"
-        aria-label="Disabled button group"
-      >
-        <Button>0</Button>
-        <Button>Clear</Button>
 
-      </ButtonGroup>
+<ButtonCard onKeypress={handleKeypadPress} />
+  
 
-      <ButtonGroup
-        disableElevation
-        variant="contained"
-        aria-label="Disabled button group"
-      >
-        <Button>Backspace</Button>
-      </ButtonGroup>
+
+
+
+
+
     </>
   );
 }
